@@ -9,6 +9,16 @@ from top_app_outgoing import *
 from top_app_incoming import *
 from conf.logger_config import logger
 
+def allDevices():
+    query = {"size": 0, "query": {"match_all": {}}, "aggs": {
+        "unique_values": {"terms": {"field": "devname.keyword"}}}}
+    response = get_by_query_agg(index_name='abg_processed', query=query)
+    if not response:
+        #return {"status": False, "msg": "No data found"}
+        return []
+    response = [res['key']
+                    for res in response['aggregations']['unique_values']['buckets']]
+    return response
 def getallreport(data):
     device = data['devname']
 
