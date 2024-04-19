@@ -1,0 +1,7 @@
+env/
+
+__pycache__
+conf/__pycache__/*
+utilities/__pycache__/*
+
+*.pyc
